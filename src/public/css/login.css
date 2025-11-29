@@ -1,0 +1,69 @@
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #ffffff, #b3c1b2, #74b39c, #39937c);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right,  #ffffff, #e2f8e1, #a8fddd, #71fddc);
+
+}
+
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+}
+
+/* Mejora visual de los campos de texto en login */
+.form-outline .form-control {
+  background-color: #f8f9fa; /* color suave del campo */
+  border: 1px solid #ccc;   /* borde visible */
+  border-radius: 6px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.form-outline .form-control:focus {
+  background-color: #fff;
+  border-color: #0072ff;  /* color UG azul */
+  box-shadow: 0 0 5px rgba(0, 114, 255, 0.3);
+}
+.form-label {
+  color: #555;
+  font-weight: 500;
+}
+body {
+  /* Fondo con textura tipo panal */
+  background-image: url("/img/panal.png");
+  /* Que el fondo se vea completo, sin cortes */
+  background-size: cover;
+  /* Centra la textura y mantiene proporción */
+  background-position: center;
+  /* Fija el fondo aunque el usuario haga scroll */
+  background-attachment: fixed;
+  /* Capa de color semitransparente encima para suavizar */
+  background-color: rgba(255, 255, 255, 0.9);
+  background-blend-mode: lighten;
+  /* Transición suave al redimensionar */
+  transition: background-size 0.3s ease;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(203,160,82,0.15), rgba(0,40,85,0.3));
+  z-index: -1;
+}
+

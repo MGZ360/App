@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario de Productos Médicos</title>
+</head>
+<body>
+    <h1>Inventario de Productos Médicos</h1>
+    <p>Universidad de Guanajuato</p>
+    <p>Campus Irapuato-Salamanca - DEM</p>
+    <p>Fecha de generación: {{REPORT_DATE}}</p>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Clasificación</th>
+                <th>Presentación</th>
+                <th>Sustancia Activa</th>
+                <th>Fecha de Caducidad</th>
+                <th>Cantidad</th>
+                <th>No. Pastillas</th>
+                <th>Elementos Restantes</th>
+                <th>Sede</th>
+                <th>Fecha de Registro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{TABLE_ROWS}}
+        </tbody>
+    </table>
+</body>
+</html>

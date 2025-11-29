@@ -1,0 +1,63 @@
+
+<nav class="navbar text-bg-light navbar-expand-lg nav-underline fw-bold" style="background-color: #fdfdfd">
+    <div class="container-fluid">
+        <div class="p-0 m-0 align-bottom">
+        <a class="navbar-brand align-bottom navbar-brand" href="/home">
+            <img src="/img/logo_nobg.png" alt="Logo" width="50" height="50" class="">
+        </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav me-4" >
+                <li class="nav-item me-5">
+                    <a class="nav-link " href="/home">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="/reportes">Reportes</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link " href="/atencion">Atención</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link " href="/inventario">Administracion</a>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown dropstart">
+            <button type="button" class="btn btn-primary position-relative rounded-circle me-3 dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #31869b;">
+                <i class="bi bi-bell-fill"></i>
+                <span id="notification-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                </span>
+            </button>
+
+            <!-- LISTA DE NOTIFICACIONES -->
+            <div class="dropdown-menu p-1" style="max-height: 200px; width: 300px; overflow-y: auto; scrollbar-width: thin">
+                <div class="list-group" id="notification-center">
+                    <!-- Las notificaciones se agregarán aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!--============================-->
+        <div class="dropdown dropstart">
+            <button class="btn dropdown-toggle" style="color: white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="rounded-circle"
+                     src="/img/Users/<%= user.imgPath ? user.imgPath : 'default-user.webp' %>"
+                     alt="Logo"
+                     width="40"
+                     height="40"
+                     style="border-color: #023ead; border-width: 3px; border-style: solid;">
+            </button>
+            <ul class="dropdown-menu ">
+                <li><a class="dropdown-item fw-bold align-middle" href="#"><%= user.username %></a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a id="logout-button" class="dropdown-item" href="#" style="color: #d60101"><i class="bi bi-power"> </i> Cerrar sesión</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<script src="/js/notificaciones.js"></script>

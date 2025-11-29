@@ -1,0 +1,100 @@
+/* Estilos específicos para la página de reportes */
+
+/* Header con imagen y título */
+.reports-header {
+  padding: 10px 0;
+  justify-content: center;
+}
+
+.logo-reportes img {
+  max-width: 150px;
+  height: auto;
+}
+
+.reports-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* Título del listado de reportes */
+.reports-title h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* Botones de generación de reportes */
+.generate-buttons button {
+  min-width: 180px;
+  font-weight: 500;
+}
+
+/* Contenedor del listado de reportes con scroll */
+.reports-list-container {
+  min-height: 500px;
+  max-height: 75vh;
+  overflow-y: auto; /* Scroll vertical cuando sea necesario */
+  margin-top: 0;
+  padding: 1rem;
+}
+
+/* Contenedor de tabla con scroll vertical */
+.table-responsive {
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.table-responsive table {
+  margin-bottom: 0;
+}
+
+/* Fijar encabezados de tabla al hacer scroll */
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.reports-list-container table {
+  height: 100%;
+}
+
+/* Mensaje cuando no hay reportes */
+.empty-reports-message {
+  width: 100%;
+  padding: 2rem;
+}
+
+.empty-reports-message p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .generate-buttons {
+    flex-direction: column;
+    gap: 8px !important;
+  }
+  
+  .generate-buttons button {
+    min-width: 150px;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+  
+  .reports-title h3 {
+    font-size: 1.2rem;
+  }
+  
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start !important;
+  }
+}

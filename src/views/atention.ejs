@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Atención Medica</title>
+    <!-- AQUI INCLUIMOS TODAS LAS LIBRERIAS DE src/views/partials/head.ejs -->
+    <%- include("partials/head") %>
+    <link rel="stylesheet" href="/css/atention.css">
+
+    <!-- -->
+</head>
+<body>
+<header>
+    <%- include('partials/navigation') %>
+</header>
+<div class="container-fluid mx-0" style="height: 90vh; background-color: #ffffff">
+    <main>
+        <div class="container-fluid d-flex justify-content-center align-items-center">
+            <h1 class="mt-4 display-6">Atención Médica</h1>
+        </div>
+    </main>
+    <div class="mt-2 gap-0 row mx-0" >
+        <!-- Contenido de la página de Atención Médica -->
+        <div class="col-12 col-md-2 d-flex justify-content-center align-items-center m-0 p-0">
+                <div class="container text-center">
+                    <h5 style="color: #2b7a78">Información del paciente</h5>
+                    <form id="atencion-Form" action="/submit-atencion" method="POST" class="pt-2 shadow px-3 my-2 border rounded-3 bg-light">
+                        <!-- NUA -->
+                        <div class="row mb-0 fw-bold">
+                            <div class="col-7 text-center mx-0">
+                                <label for="NUA" class="form-label">NUA</label>
+                                <input type="number" min="100000" max="999999"
+                                       class="form-control text-center"
+                                       id="NUA" name="NUA"
+                                       placeholder="XXXXXX" required>
+                            </div>
+                            <div class="col-5 mx-0 justify-content-center d-flex align-items-end">
+                                <div class="form-check ">
+                                    <label class="form-check-label fw-bold" for="nointerno">
+                                        ¿Es externo?
+                                    </label>
+                                    <input class="form-check-input " type="checkbox" id="nointerno" name="nointerno" value="true">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox es externo -->
+                        <div class="row mb-3 fw-bold">
+                            <div class="col-12 d-flex justify-content-center">
+
+                            </div>
+                        </div>
+
+                        <!-- Nombre -->
+                        <div class="row mb-3 fw-bold">
+                            <div class="col-12 text-center">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" maxlength="30" class="form-control"
+                                       id="nombre" name="nombre"
+                                       placeholder="Nombre" required>
+                            </div>
+                        </div>
+
+                        <!-- Apellido Paterno -->
+                        <div class="row mb-3 fw-bold">
+                            <div class="col-12 text-center">
+                                <label for="apellidoP" class="form-label">Apellido Paterno</label>
+                                <input type="text" maxlength="30" class="form-control"
+                                       id="apellidoP" name="apellidoP"
+                                       placeholder="Apellido Paterno" required>
+                            </div>
+                        </div>
+
+                        <!-- Apellido Materno -->
+                        <div class="row mb-2 fw-bold">
+                            <div class="col-12 text-center">
+                                <label for="apellidoM" class="form-label">Apellido Materno</label>
+                                <input type="text" maxlength="30" class="form-control"
+                                       id="apellidoM" name="apellidoM"
+                                       placeholder="Apellido Materno" required>
+                            </div>
+                        </div>
+                        <div class="row mb-1 fw-bold">
+                            <div class="col-12 text-center">
+                                <label for="diagnostico" class="form-label">Diagnóstico</label>
+                                <textarea class="form-control" id="diagnostico" name="diagostico" rows="3" required minlength="5" maxlength="60"></textarea>
+                            </div>
+                        </div>
+                        <!-- Fecha -->
+                        <div class="row mb-3 fw-bold">
+                            <div class="col-12 text-center">
+                                <label for="fecha" class="form-label">Fecha</label>
+                                <input type="date" class="form-control text-center"
+                                       id="fecha" name="fecha" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </div>
+
+        <div class="col-12 col-md-10 d-flex justify-content-center mx-0">
+            <div class="row mx-0 w-100">
+
+                <div class="container-fluid bg-white rounded-3 px-3 my-0 mx-0 border shadow medicamentos-wrapper" style="height: 75vh;">
+                    <!-- Barra de búsqueda fija arriba a la derecha -->
+                    <div class="d-flex justify-content-end pt-3 mb-2 gap-2">
+                        <div class="input-group w-25 w-md-25">
+                            <label for="buscarMedicamento" class="input-group-text bg-info text-light">
+                                <i class="bi bi-search"></i>
+                            </label>
+                            <input type="text" id="buscarMedicamento" class="form-control" placeholder="Ingrese el nombre del medicamento">
+                        </div>
+                        <div>
+                            <select class="form-select" aria-label="Default select example" id="resultadosSearch">
+                                <option selected>Seleccionar un resultado</option>
+                            </select>
+                        </div>
+                        <div style="width: 80px; ">
+                            <input id="cantidadMedicamento" type="number" class="form-control" placeholder="Cantidad" min="1" value="1" required>
+                        </div>
+                        <div>
+                            <button id="add-to-cart-btn" type="button" class="btn-success btn fw-bold "><i class="bi bi-plus text-white"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Área scroll sólo para la tabla -->
+                    <div class="tabla-scroll overflow-auto mt-2 border border-2">
+                        <table class="table table-bordered table-striped table-hover" id="tablaMedicamentos">
+                            <thead class="text-center">
+                            <tr class="align-middle">
+                                <th class="header_tablaIZQ">#</th>
+                                <th class="header_tablaMID">Clasificación</th>
+                                <th class="header_tablaMID">Presentación</th>
+                                <th class="header_tablaMID">Sustancia Activa</th>
+                                <th class="header_tablaMID">Cantidad</th>
+                                <th>Fecha Caducidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <div class="my-3 d-flex justify-content-end gap-2">
+                    <button class="btn fw-bold btn-danger btn-lg text-light border shadow-sm" type="button" id="reset-form-btn" >Cancelar atencion</button>
+                    <button class="btn fw-bold btn-info btn-lg text-light border shadow-sm" type="button" id="send-atention-btn">Finalizar Atencion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<%- include('partials/footer') %>
+<script src="/js/atention-one.js"></script>
+</body>
+</html>

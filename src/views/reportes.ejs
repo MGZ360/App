@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reportes</title>
+    <%- include("partials/head") %>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/reports.css">
+</head>
+<body>
+<header>
+    <%- include('partials/navigation') %>
+</header>
+
+<div class="reports-header d-flex align-items-center">
+    <div class="logo-reportes">
+        <img src="/img/imagen.jpg" alt="Universidad de Guanajuato">
+    </div>
+    <h1 class="ms-3">Reportes</h1>
+</div>
+<div class="container-fluid mt-1">
+    <!-- Encabezado con título y botones -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <!-- Título en la esquina superior izquierda -->
+        <div class="reports-title">
+            <h3>LISTADO DE REPORTES</h3>
+        </div>
+
+        <!-- Botones de generación en esquina superior derecha -->
+        <div class="generate-buttons d-flex gap-2">
+            <button class="btn btn-danger btn-sm" id="btnGeneratePDF" data-bs-toggle="modal" data-bs-target="#modalGeneratePDF">
+                <i class="bi bi-file-earmark-pdf"></i> Generar reporte PDF
+            </button>
+            <button class="btn btn-success btn-sm" id="btnGenerateExcel" data-bs-toggle="modal" data-bs-target="#modalGenerateExcel">
+                <i class="bi bi-file-earmark-spreadsheet"></i> Generar reporte Excel
+            </button>
+        </div>
+    </div>
+
+    <!-- Tabla de reportes generados -->
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive shadow border rounded border-dark-subtle border-2 mb-0 pb-0 container overflow-auto">
+                <table class="table table-bordered table-striped table-hover mt-2 mx-0" id="tablaReportes">
+                    <thead>
+                        <tr class="align-middle">
+                            <th class="header_tablaIZQ" scope="col">#</th>
+                            <th class="header_tablaMID" scope="col">Fecha del reporte</th>
+                            <th class="header_tablaMID" scope="col">Nombre del reporte</th>
+                            <th class="header_tablaDER" scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (reports && reports.length > 0) { %>
+                            <% reports.forEach(function(report, index) { %>
+                                <tr class="align-middle">
+                                    <td class="fw-bold"><%= index + 1 %></td>
+                                    <td><%= new Date(report.fecha_creacion).toISOString().slice(0, 19).replace('T', ' ') %></td>
+                                    <td><%= report.nombre_original %></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success download-report-btn" data-report-id="<%= report.id %>" title="Descargar">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">
+                                    No hay existencia de reportes generados
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para nombre del reporte PDF -->
+<div class="modal fade" id="modalGeneratePDF" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Generar Reporte PDF</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formGeneratePDF">
+                    <div class="mb-3">
+                        <label for="nombreReportePDF" class="form-label">Nombre del reporte</label>
+                        <input type="text" class="form-control" id="nombreReportePDF" 
+                               placeholder="Ej: Reporte Inventario Noviembre 2025" required>
+                        <div class="form-text">El archivo se guardará con extensión .pdf automáticamente</div>
+                    </div>
+                    <div class="alert alert-info mb-0">
+                        <small><i class="bi bi-info-circle"></i> Se generará un reporte con todos los productos del inventario.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmGeneratePDF">
+                    <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para nombre del reporte Excel -->
+<div class="modal fade" id="modalGenerateExcel" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Generar Reporte Excel</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formGenerateExcel">
+                    <div class="mb-3">
+                        <label for="nombreReporteExcel" class="form-label">Nombre del reporte</label>
+                        <input type="text" class="form-control" id="nombreReporteExcel" 
+                               placeholder="Ej: Reporte Inventario Noviembre 2025" required>
+                        <div class="form-text">El archivo se guardará con extensión .xlsx automáticamente</div>
+                    </div>
+                    <div class="alert alert-success mb-0">
+                        <small><i class="bi bi-info-circle"></i> Se generará un archivo Excel con todos los productos del inventario.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnConfirmGenerateExcel">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Generar Excel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
+<script src="/js/reportes.js"></script>
+</body>
+</html>

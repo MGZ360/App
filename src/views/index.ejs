@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title> <%= title %> </title>
+        <!-- AQUI INCLUIMOS TODAS LAS LIBRERIAS DE src/views/partials/head.ejs -->
+        <%- include("partials/head") %>
+        <link rel="stylesheet" href="/css/main1.css">
+        <!-- -->
+    </head>
+    <body>
+        <header>
+            <%- include('partials/navigation') %>
+        </header>
+        <main>
+            <div class="container-fluid ">
+                <!-- Carrusel principal -->
+                <div id="carruselPhotos" class="carousel slide p-5 mb-0" data-bs-ride="carousel" data-bs-interval="5000">
+                    <!-- Indicadores -->
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carruselPhotos" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carruselPhotos" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    </div>
+
+                    <!-- Slides -->
+                    <div id="carruselPhotos" class="carousel slide pt-0  mb-0" data-bs-ride="carousel" data-bs-interval="5000">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="/img/carrousel1.svg" class="d-block w-75 mx-auto carousel-img" alt="Imagen 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/img/carrousel2.svg" class="d-block w-75 mx-auto carousel-img" alt="Imagen 2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carruselPhotos" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carruselPhotos" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+
+                <!-- Botones circulares en otra fila -->
+                <div id="content-box" class="row justify-content-center mt-0 text-center">
+                    <div class="col-12 d-flex justify-content-center gap-4 flex-wrap">
+                        <a href="/reportes" class="circle-btn">
+                            <i class="bi bi-bar-chart-line-fill fs-1 text-success"></i>
+                            <small class="fw-bold mt-2">Reportes</small>
+                        </a>
+                        <a href="/atencion" class="circle-btn">
+                            <i class="bi bi-heart-pulse-fill fs-1 text-danger"></i>
+                            <small class="fw-bold mt-2">Atención</small>
+                        </a>
+                        <a href="/inventario" class="circle-btn">
+                            <i class="bi bi-box-seam-fill fs-1 text-primary"></i>
+                            <small class="fw-bold mt-2">Admin</small>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+
+        <%- include('partials/footer') %>
+    </body>
+</html>

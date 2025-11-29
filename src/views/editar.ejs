@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> <%= title %> </title>
+  <link rel="stylesheet" href="/css/edit.css">
+  <%- include("partials/head") %>   
+</head>
+<body>
+    <head>
+        <%- include('partials/navigation') %>
+    </head>
+
+  <main class="container">
+    <h1>Editar medicamento</h1>
+
+    <form class="form" action="/update/<%= product.ProductoID %>" method="post">
+        <div class="row">
+          <div class="col-6">
+                <label class="form-label" for="id">ID</label>
+                <input class="form-control" type="text" placeholder="ID" value="<%= product.ProductoID %>" id="id" name="ID" readonly required>
+          </div>
+          <div class="col-6">
+              <label class="form-label" for="Clasificacion">Clasificación</label>
+              <select class="form-select text-center" id="clasificacionSelect" name="Clasificacion" required>
+                  <option selected disabled value="">👉 Seleccionar 👈</option>
+                  <option value="Analgesia">Analgesia</option>
+                  <option value="Dermatología">Dermatología</option>
+                  <option value="Gastroenterología">Gastroenterología</option>
+                  <option value="Inmunoalérgico">Inmunoalérgico</option>
+                  <option value="Neumología">Neumología</option>
+                  <option value="Otorrinolaringología">Otorrinolaringología</option>
+                  <option value="Reumatología y Traumatología">Reumatología y Traumatología</option>
+                  <option value="Procedimientos">Procedimientos</option>
+                  <option value="Sin Clasificacion">Sin Clasificacion</option>
+              </select>
+          </div>
+        </div>
+
+      <div class="form-row">
+        <label class="form-label" for="presentacion">Presentación</label>
+          <input class="form-control" maxlength="30" minlength="5" type="text" id="presentacion" name="Presentacion" value="<%= product.Presentacion %>" required>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label" for="sustancia">Sustancia activa</label>
+          <input class="form-control" maxlength="50" minlength="5" type="text" id="sustancia" name="Sustancia" value="<%= product.Sustancia_activa   %>"  required>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <label class="form-label" for="cantidad">Cantidad (cajas)</label>
+            <input class="form-control" type="number" min="0" id="cantidad" name="Cantidad"  value="<%= product.Cantidad %>" required>
+        </div>
+        <div class="col-4">
+          <label class="form-label" for="noPastillas">No. pastillas (por caja)</label>
+            <input class="form-control" type="number" min="0" id="noPastillas" name="noPastillas" value="<%= product.No_pastillas %>" required>
+        </div>
+        <div class="col-4">
+          <label class="form-label" for="elementosres">Elementos Restantes (en la caja abierta)</label>
+          <input class="form-control" type="number" min="0" id="elementosres" name="elementosres" value="<%= product.Elementos_res %>" required>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-6">
+            <label class="form-label" for="sedeSelect">Sede</label>
+            <select class="form-select" id="sedeSelect" name="Sede" required>
+                <option selected disabled value="" >Seleccionar sede.</option>
+                <option value="DEM Yuriria">DEM Yuriria</option>
+                <option value="DICIS" disabled>DICIS</option>
+                <option value="DICIVA" disabled>DICIVA</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="fechaCaducidad">Fecha de caducidad</label>
+              <input class="form-control" min="2025-11-01" type="date" id="fechaCaducidad" name="fechaCaducidad" value="<%= product.Fecha_caducidad.toISOString().split('T')[0] %>" required>
+          </div>
+        </div>
+      <div class="form-actions">
+        <div class="form-actions">
+            <button class="btn btn-primary btn-custom-wide" type="submit">Actualizar</button>
+            <a href="/inventario" class="btn btn-secondary btn-custom-wide">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

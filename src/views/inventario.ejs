@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <!--genera imagen en el favicon-->
+    <!-- link rel="icon" type="image/png" href="imagen2.jpg" -->
+    <link rel="stylesheet" href="css/style.css">
+    <%- include("partials/head") %>
+    <title>Administración de Medicamentos</title>
+
+</head>
+<body>
+
+<header>
+    <%- include('partials/navigation') %>
+</header>
+
+<div class="logo d-flex justify-content-center align-items-center my-3 gap-3">
+    <img src="img/imagen.jpg" alt="Universidad de Guanajuato">
+    <h1>Administración de Medicamentos</h1>
+</div>
+
+<div class="container-fluid mb-1">
+    <div class="row text-center mb-md-0 me-0 mb-5">
+        <div class="col-12 col-md-3 ms-md-0 pe-0 ps-md-4 mb-md-5">
+            <!-- Formulario -->
+            <form class="form shadow-lg border border-dark-subtle border-2 p-4 rounded bg-light"  id="medicamentoForm" action="/create" method="POST">
+                <h5 class="fw-bold mb-2 text-center"><i class="bi bi-capsule"></i> Agregar Producto Médico <i class="bi bi-bandaid"></i></h5>
+                <div class="mb-1">
+                    <label class="form-label" for="clasificacion">Clasificación</label>
+                    <select class="form-select text-center" id="clasificacionSelect" name="Clasificacion" required>
+                        <option selected disabled value="">👉 Seleccionar 👈</option>
+                        <option value="Analgesia">Analgesia</option>
+                        <option value="Dermatología">Dermatología</option>
+                        <option value="Gastroenterología">Gastroenterología</option>
+                        <option value="Inmunoalérgico">Inmunoalérgico</option>
+                        <option value="Neumología">Neumología</option>
+                        <option value="Otorrinolaringología">Otorrinolaringología</option>
+                        <option value="Reumatología y Traumatología">Reumatología y Traumatología</option>
+                        <option value="Procedimientos">Procedimientos</option>
+                        <option value="Sin Clasificacion">Sin Clasificacion</option>
+                    </select>
+                </div>
+
+                <div class="mb-1">
+                    <label class="form-label" for="sustancia">Sustancia Activa</label>
+                    <input class="form-control" maxlength="100" minlength="5" type="text" id="sustancia" name="Sustancia" required>
+
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-6">
+                    <label class="form-label" for="presentacion">Presentación</label>
+                    <input class="form-control" maxlength="30" minlength="5" type="text" id="presentacion" name="Presentacion" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="elementosres">Elementos Res</label>
+                        <input class="form-control" type="number" min="0" id="elementosres" name="elementosres" required>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-6">
+                        <label class="form-label" for="cantidad">Cantidad</label>
+                        <input class="form-control" type="number" min="0" id="cantidad" name="Cantidad" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="noPastillas">N° de pastillas</label>
+                        <input class="form-control" type="number" min="0" id="noPastillas" name="noPastillas" required>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5">
+                        <label class="form-label" for="sedeSelect">Sede</label>
+                        <select class="form-select" id="sedeSelect" name="Sede" required>
+                            <option selected disabled value="">Seleccionar sede.</option>
+                            <option value="DEM Yuriria">DEM Yuriria</option>
+                            <option value="DICIS" disabled>DICIS</option>
+                            <option value="DICIVA" disabled>DICIVA</option>
+                        </select>
+                    </div>
+
+                    <div class="col-7">
+                        <label class="form-label" for="fechaCaducidad">Fecha de caducidad</label>
+                        <input class="form-control" min="2025-11-01" type="date" id="fechaCaducidad" name="fechaCaducidad" required>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between d-inline-block gap-1">
+                    <button id="btn-add-med" class="btn text-wrap" type="submit" style="font-size: clamp(10px, 15px, 20vh)">Agregar Producto</button>
+                    <button class="btn btn-danger text-wrap" type="reset" style="font-size: clamp(10px, 15px, 20vh)">Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-12 col-md-9 ms-md-0 mt-md-0 me-md-0 mt-3 pe-md-4 mx-0" style="max-height: 75vh">
+            <!-- Tabla -->
+            <div id="tableholder" class="tabla-scroll shadow mt-0 border rounded border-dark-subtle border-2 mb-0 pb-0 overflow-auto">
+                <table class ="table table-bordered table-striped table-hover pt-2 px-0 my-2" id="tablaMedicamentos">
+                    <thead>
+                    <tr class="align-middle">
+                        <th scope="col">#</th>
+                        <th scope="col">Clasificación</th>
+                        <th scope="col">Presentación</th>
+                        <th scope="col">Sustancia Activa</th>
+                        <th scope="col">Cajas</th>
+                        <th scope="col">No. P/caja</th>
+                        <th scope="col">Restantes</th>
+                        <th scope="col">Sede</th>
+                        <th scope="col">Fecha Caducidad</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%# INICIA EL FOR PARA LLENAR LA TABLA %>
+                    <% for(var i=0; i<products.length; i++) {%>
+                        <tr class="align-middle">
+                            <!--<td><%= products[i].ProductoID %></td>-->
+                            <td class="fw-bold"><%= i + 1 %></td>
+                            <td><%= products[i].Clasificacion %></td>
+                            <td><%= products[i].Presentacion %></td>
+                            <td class="text-wrap"><%= products[i].Sustancia_activa %></td>
+                            <td><%= products[i].Cantidad %></td>
+                            <td><%= products[i].No_pastillas %></td>
+                            <td><%= products[i].Elementos_res %></td>
+                            <td><%= products[i].Sede %></td>
+                            <!--CONSTRUCCION DE LA TRANSFORMACION DE FECHA SEMAFORO DE COLORES-->
+                            <%
+                                const fecha = products[i].Fecha_caducidad.toISOString().split('T')[0];
+                                const [year, month, day] = fecha.split('-');
+                                const fechaActual = new Date(Date.now());
+                                const fechaP = new Date(year, month - 1, day);
+                                const diff = fechaP - fechaActual ; //Esto lo da en MS JavaScript
+                                const diffMeses = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+                                // Esto es para dividir el tiempo de diferencia que esta en mili segundos a meses
+                            %>
+                            <% if (diffMeses > 11) { %>
+                                <td><span class="d-inline badge  text-bg-success shadow-sm" style="font-size: clamp(10px, 100%, 10vw)"><%= `${day}-${month}-${year}` %></span></td>
+                            <% } else if (diffMeses >=1) { %>
+                                <td><span class="d-inline badge shadow-sm" style="color: white; background-color: #ffb308; font-size: clamp(10px, 100%, 10vw)"><%= `${day}-${month}-${year}` %></span></td>
+                            <% } else { %>
+                                <td><span class="d-inline badge text-bg-danger shadowm-sm" style="font-size: clamp(10px, 100%, 10vw)"><%= `${day}-${month}-${year}` %></span></td>
+                            <% } %>
+                            <!-- FIN SEMAFORO DE COLORES CON FECHA.-->
+
+                            <td class="d-inline-flex gap-1">
+                                <a class="btn btn-primary btn-sm" href="/editar/<%= products[i].ProductoID %>"><i class="bi bi-pencil-square"></i></a>
+                                <a
+                                        class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal"
+                                        data-id="<%= products[i].ProductoID %>"
+                                        data-nombre2="<%= products[i].Nombre %>">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% } %>
+                    <%# TERMINA EL FOR %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-danger">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirmar eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro de que deseas eliminar <strong id="nombreProducto"></strong>?
+                        Esta es una acción permanente.
+                    </div>
+                    <div class="modal-footer">
+                        <form id="deleteForm" method="GET">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--SCRIPT PARA INSERSION DE ID EN MODAL-->
+<script>
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const nombre2 = button.getAttribute('data-nombre2');
+
+        // Actualiza el texto del modal
+        deleteModal.querySelector('#nombreProducto').textContent = nombre2;
+
+        // Actualiza la acción del formulario
+        const form = deleteModal.querySelector('#deleteForm');
+        form.action = `/delete/${id}`;
+    });
+</script>
+<%- include('partials/footer') %>
+</body>
+</html>

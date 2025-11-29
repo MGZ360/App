@@ -1,0 +1,67 @@
+/* Fondo tipo panal */
+#body1 {
+    background-color: #ffffff;
+}
+
+/* Caja central */
+.content-box {
+    background-color: rgba(43, 122, 120, 0.85);
+    border: 2px solid #f8f9fa;
+    border-radius: 1rem;
+    padding: 3rem;
+    max-width: 700px;
+    margin: 0 auto; /* centra la caja */
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+/* Botones circulares */
+.circle-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.circle-btn:hover {
+    transform: scale(1.1);
+    background-color: #f8fffe;
+    color: #000000;
+}
+
+/* Carrusel */
+#carouselOne {
+    max-height: 40vh;
+    max-width: 100%;
+    margin-bottom: 2rem; /* espacio debajo del carrusel */
+}
+
+.carousel-img {
+    max-height: 400px;   /* controla altura del carrusel */
+    width: 100%;         /* asegura que ocupe todo el ancho */
+    object-fit: contain; /* ajusta la imagen dentro del contenedor */
+}
+.carousel-control-prev-icon {
+    background-image: url("/img/carrousel-left.svg");
+}
+.carousel-control-next-icon {
+    background-image: url("/img/carrousel-right.svg");
+}
+
+/* Controles del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* ancho reducido para que solo se vea el ícono */
+}
+
+.control-icon {
+    width: 40px;   /* tamaño del ícono */
+    height: 40px;
+    object-fit: contain;
+}
